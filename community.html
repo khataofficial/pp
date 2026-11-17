@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="theme.js"></script><title>Khata Community</title>
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#0f0f0f;--soft:#606060;--line:#e5e5e5;--ac:#cc0000;--on:#fff;--star:#f59e0b;--bad:#dc2626;--code:#0f172a;--codet:#e2e8f0}
+@media (prefers-color-scheme:dark){:root{--bg:#0f0f0f;--card:#181818;--ink:#f1f1f1;--soft:#aaa;--line:#272727;--ac:#ff4e45;--on:#0f0f0f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:78px}
+button,input,textarea,select{font:inherit;color:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:10px}
+header h1{margin:0;font-size:19px;flex:1}
+header a,.lnk{color:var(--soft);font-size:13px;text-decoration:none;border:0;background:none;padding:6px}
+main{max-width:1280px;margin:0 auto;padding:14px 14px}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
+nav button{flex:1;border:0;background:none;padding:10px 4px 9px;font-size:12px;font-weight:700;color:var(--soft);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button i{font-style:normal;font-size:19px}nav button.on{color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.row{display:flex;align-items:center;gap:8px}.sp{flex:1}
+.who{font-weight:800}.t{color:var(--soft);font-size:12px}
+.body{margin:8px 0 4px;white-space:pre-wrap;overflow-wrap:anywhere}
+.more{border:0;background:none;color:var(--soft);font-weight:700;padding:2px 0}
+pre{margin:8px 0 4px;background:var(--code);color:var(--codet);border-radius:12px;padding:12px;overflow:auto;font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre}
+pre.cut{max-height:150px;overflow:hidden}
+.lang{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--soft)}
+.acts{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.b{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 13px;font-size:13px;font-weight:700}
+.b.on{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.pri{border:0;background:var(--ac);color:var(--on);border-radius:12px;padding:11px 18px;font-weight:800}.pri[disabled]{opacity:.4}
+textarea,input[type=text],select{width:100%;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:11px 12px}
+textarea{resize:vertical;min-height:84px}
+.kinds{display:flex;gap:6px;margin:8px 0}
+.empty{text-align:center;color:var(--soft);padding:40px 10px}
+.stars{color:var(--star);letter-spacing:1px;white-space:nowrap}
+.sp2{font-weight:800}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20;display:none;align-items:flex-end;justify-content:center}.ov.on{display:flex}
+.sheet{background:var(--card);width:100%;max-width:520px;max-height:88vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0))}
+@media(min-width:600px){.ov{align-items:center}.sheet{border-radius:20px}}
+.chat{height:56vh;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:4px 0}
+.m{max-width:80%;padding:8px 12px;border-radius:14px;background:var(--bg);overflow-wrap:anywhere;white-space:pre-wrap}.m.me{align-self:flex-end;background:var(--ac);color:var(--on)}
+.m small{display:block;opacity:.6;font-size:10.5px}
+.star-pick button{border:0;background:none;font-size:32px;color:var(--line);padding:0 2px}.star-pick button.on{color:var(--star)}
+.sb{width:32px;height:32px;border-radius:50%;background:var(--chip);color:var(--soft);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:22px;line-height:1;flex-shrink:0}
+.badge{display:inline-block;background:var(--chip);color:var(--accent);border-radius:99px;padding:2px 10px;font-size:12px;font-weight:800;align-self:flex-start}
+.feedw{max-width:640px;margin:0 auto}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.sc{display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.av{width:48px;height:48px;border-radius:50%;background:var(--ac);color:var(--on);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;flex-shrink:0}
+.b.on,.pri{border-radius:99px}
+nav button.on{color:var(--ac)}
+@media(min-width:900px){body{padding-bottom:0;padding-left:96px}nav{top:57px;bottom:0;right:auto;width:84px;flex-direction:column;border-top:0;border-right:1px solid var(--line);background:var(--bg);padding-top:8px}nav button{padding:14px 4px}header{padding-left:112px;margin-left:-96px}.toast{bottom:24px}}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:var(--ac);color:var(--on);padding:10px 16px;border-radius:12px;font-weight:700;z-index:30}
+</style>
+<script src="khicons.js"></script>
+<link rel="stylesheet" href="shop-ui.css">
+</head>
+<body>
+<header><a href="index.html" class="sb" aria-label="Back">‹</a><h1 style="flex:1">Community</h1><button class="b" id="tb" title="Theme">🎨</button></header>
+<main id="main"><div class="empty">Loading…</div></main>
+<nav id="nav"></nav>
+<div class="ov" id="ov"><div class="sheet" id="sheet"></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+(function(){
+var C=window.KHATA_CFG||{},sb=window.supabase.createClient(C.URL,C.KEY,{auth:{storageKey:'sb-khata',persistSession:true,autoRefreshToken:true}});
+var $=function(i){return document.getElementById(i);},me=null,name='',tab='stores',kind='text',saved={},stores=[],timer=null,SHORT=240;
+var esc=function(t){var d=document.createElement('div');d.textContent=String(t==null?'':t);return d.innerHTML;};
+function toast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove();},2200);}
+function ago(t){var m=Math.max(1,Math.round((Date.now()-new Date(t))/60000));if(m<60)return m+' min';var h=Math.round(m/60);if(h<24)return h+' h';return Math.round(h/24)+' d';}
+function copy(t){if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){toast('Copied');},function(){toast('Could not copy');});else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');toast('Copied');}catch(e){toast('Could not copy');}a.remove();}}
+function open(h){$('sheet').innerHTML=h;$('ov').classList.add('on');}
+function close(){$('ov').classList.remove('on');clearInterval(timer);}
+$('ov').addEventListener('click',function(e){if(e.target===$('ov'))close();});
+function stars(n){n=Math.round(n);return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n);}
+
+function nav(){var T=[['stores','🏪','Stores'],['feed','📝','Posts'],['pub','🌐','Public'],['chats','💬','Messages'],['saved','🔖','Saved']];
+$('nav').innerHTML=T.map(function(x){return '<button data-t="'+x[0]+'" class="'+(tab===x[0]?'on':'')+'"><i>'+x[1]+'</i>'+x[2]+'</button>';}).join('');}
+$('nav').addEventListener('click',function(e){var b=e.target.closest('[data-t]');if(!b)return;tab=b.getAttribute('data-t');nav();show();});
+function show(){({feed:feed,stores:storeTab,pub:pub,chats:chats,saved:savedTab})[tab]();}
+
+/* ---------- posts ---------- */
+function postCard(p){var code=p.kind!=='text',long=code?p.body.split('\n').length>8:p.body.length>SHORT;
+var inner=code?'<pre class="'+(long?'cut':'')+'"><code></code></pre>':'<div class="body"></div>';
+var d=document.createElement('div');d.className='card';
+d.innerHTML='<div class="row"><span class="who">'+esc(p.author)+'</span>'+(code?'<span class="lang">'+p.kind+'</span>':'')+'<span class="t sp">· '+ago(p.created_at)+'</span></div>'+inner+(long?'<button class="more">Show more</button>':'')+
+'<div class="acts"><button class="b" data-a="copy">Copy</button><button class="b'+(saved[p.id]?' on':'')+'" data-a="save">'+(saved[p.id]?'Saved':'Save')+'</button>'+(p.user_id!==me.id?'<button class="b" data-a="dm">Message</button>':'<button class="b" data-a="del">Delete</button>')+'</div>';
+var el=d.querySelector(code?'code':'.body');el.textContent=(!code&&long)?p.body.slice(0,SHORT)+'…':p.body;
+var mb=d.querySelector('.more');if(mb)mb.onclick=function(){var open=mb.textContent==='Show more';if(code)d.querySelector('pre').classList.toggle('cut',!open);else el.textContent=open?p.body:p.body.slice(0,SHORT)+'…';mb.textContent=open?'Show less':'Show more';};
+d.querySelector('.acts').onclick=function(e){var a=e.target.getAttribute('data-a');if(!a)return;
+ if(a==='copy')copy(p.body);
+ if(a==='save'){var on=!saved[p.id];(on?sb.from('saves').insert({user_id:me.id,post_id:p.id}):sb.from('saves').delete().eq('user_id',me.id).eq('post_id',p.id)).then(function(r){if(r.error){toast('Could not save');return;}if(on)saved[p.id]=1;else delete saved[p.id];e.target.classList.toggle('on',on);e.target.textContent=on?'Saved':'Save';});}
+ if(a==='dm')thread(p.user_id,p.author);
+ if(a==='del'&&confirm('Delete this post?'))sb.from('posts').delete().eq('id',p.id).then(function(){d.remove();});};
+return d;}
+function feed(){var m=$('main');m.innerHTML='<div class="feedw"><div class="card"><textarea id="pb" maxlength="6000" placeholder="Share a message or code"></textarea><div class="kinds" id="kinds"></div><div class="row"><span class="t sp" id="cc"></span><button class="pri" id="go">Post</button></div></div><div id="list"><div class="empty">Loading…</div></div></div>';
+function kb(){$('kinds').innerHTML=['text','html','css','js'].map(function(k){return '<button class="b'+(kind===k?' on':'')+'" data-k="'+k+'">'+(k==='text'?'Message':k.toUpperCase())+'</button>';}).join('');}kb();
+$('kinds').onclick=function(e){var k=e.target.getAttribute('data-k');if(k){kind=k;kb();$('pb').placeholder=k==='text'?'Write a message':'Paste '+k.toUpperCase()+' code';$('pb').style.fontFamily=k==='text'?'':'ui-monospace,Menlo,monospace';}};
+$('pb').oninput=function(){$('cc').textContent=this.value.length+' / 6000';};
+$('go').onclick=function(){var v=$('pb').value.trim();if(!v){toast('Write something first');return;}$('go').disabled=true;
+ sb.from('posts').insert({user_id:me.id,author:name,kind:kind,body:v}).then(function(r){$('go').disabled=false;if(r.error){toast('Could not post');return;}$('pb').value='';$('cc').textContent='';load();});};
+function load(){sb.from('posts').select('*').order('created_at',{ascending:false}).limit(60).then(function(r){var l=$('list');if(!l)return;l.innerHTML='';if(r.error){l.innerHTML='<div class="empty">Could not load. Run community_setup.sql first.</div>';return;}if(!r.data.length){l.innerHTML='<div class="empty">No posts yet</div>';return;}r.data.forEach(function(p){l.appendChild(postCard(p));});});}
+load();}
+function savedTab(){var m=$('main');m.innerHTML='<div class="empty">Loading…</div>';
+sb.from('saves').select('post_id,posts(*)').eq('user_id',me.id).order('created_at',{ascending:false}).then(function(r){m.innerHTML='';var L=(r.data||[]).filter(function(x){return x.posts;});if(!L.length){m.innerHTML='<div class="empty">Nothing saved yet</div>';return;}L.forEach(function(x){m.appendChild(postCard(x.posts));});});}
+
+/* ---------- stores ---------- */
+var ss='top';
+function storeTab(){var m=$('main');m.innerHTML='<input type="text" id="sq" placeholder="Search stores or city" style="margin-bottom:16px;border-radius:99px;max-width:560px;display:block"><div id="ssort" style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto"></div><div id="sl" class="sgrid"><div class="empty">Loading…</div></div>';
+function draw(){var q=$('sq').value.trim().toLowerCase(),l=$('sl');var L=stores.filter(function(s){return !q||(s.name+' '+s.city+' '+s.description).toLowerCase().indexOf(q)>-1;});
+ var sc=function(s){return ((+s.avg||0)*(+s.cnt||0)+3.5*2)/((+s.cnt||0)+2);};if(ss==='top')L.sort(function(a,b){return sc(b)-sc(a);});else if(ss==='prod')L.sort(function(a,b){return b.products-a.products;});
+ $('ssort').innerHTML=[['top','⭐ Top rated'],['prod','📦 Most products']].map(function(x){return '<button class="b'+(ss===x[0]?' on':'')+'" data-s="'+x[0]+'">'+x[1]+'</button>';}).join('');
+ if(!L.length){l.innerHTML='<div class="empty">'+(stores.length?'No stores found':'No stores yet')+'</div>';return;}
+ l.innerHTML='';L.forEach(function(s,ix){var d=document.createElement('div');d.className='sc';
+ d.innerHTML=(ss==='top'&&s.cnt&&ix<3?'<span class="badge">🏆 Top '+(ix+1)+'</span>':'')+'<div class="row" style="gap:12px"><div class="av">'+esc(String(s.name||'S').trim().charAt(0).toUpperCase())+'</div><div class="sp" style="min-width:0"><div class="who">'+esc(s.name)+'</div><div class="t">'+(s.city?esc(s.city)+' · ':'')+s.products+' products</div><div class="stars">'+(s.cnt?stars(s.avg)+' '+s.avg+' <span class="t">('+s.cnt+')</span>':'<span class="t">No ratings</span>')+'</div></div></div>'+(s.description?'<div class="t" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">'+esc(s.description)+'</div>':'')+'<div class="acts"><button class="b on" data-a="open">🏪 Visit</button><button class="b" data-a="rate">⭐ Rate</button><button class="b" data-a="rev">💬 Reviews</button>'+(s.owner!==me.id?'<button class="b" data-a="chat">✉️ Chat</button>':'')+'</div>';
+ d.querySelector('.acts').onclick=function(e){var a=e.target.getAttribute('data-a');if(a==='open')location.href='shop.html?s='+encodeURIComponent(s.slug);if(a==='rate')rate(s);if(a==='rev')reviews(s);if(a==='chat')thread(s.owner,s.name);};l.appendChild(d);});}
+sb.rpc('store_list').then(function(r){stores=Array.isArray(r.data)?r.data:[];if(!$('sl'))return;if(r.error)$('sl').innerHTML='<div class="empty">Could not load. Run community_setup.sql in Supabase.</div>';else draw();});
+$('sq').oninput=draw;$('ssort').onclick=function(e){var b=e.target.closest('[data-s]');if(b){ss=b.getAttribute('data-s');draw();}};}
+function rate(s){if(s.owner===me.id){toast('You cannot rate your own store');return;}var n=0;
+open('<h3 style="margin:0 0 8px">Rate '+esc(s.name)+'</h3><div class="star-pick" id="sp"></div><textarea id="rc" maxlength="300" placeholder="Write a short review (optional)"></textarea><div class="row" style="margin-top:12px"><button class="b sp" id="x">Cancel</button><button class="pri" id="ok">Submit</button></div>');
+function paint(){$('sp').innerHTML=[1,2,3,4,5].map(function(i){return '<button data-n="'+i+'" class="'+(i<=n?'on':'')+'">★</button>';}).join('');}paint();
+$('sp').onclick=function(e){var v=e.target.getAttribute('data-n');if(v){n=+v;paint();}};$('x').onclick=close;
+$('ok').onclick=function(){if(!n){toast('Tap the stars first');return;}sb.rpc('rate_store',{p_slug:s.slug,p_stars:n,p_comment:$('rc').value.trim(),p_author:name}).then(function(r){if(r.error){toast(r.error.message||'Could not rate');return;}close();toast('Thanks for rating!');storeTab();});};}
+function reviews(s){open('<h3 style="margin:0 0 8px">Reviews · '+esc(s.name)+'</h3><div id="rv"><div class="empty">Loading…</div></div>');
+sb.from('store_ratings').select('*').eq('slug',s.slug).order('created_at',{ascending:false}).limit(40).then(function(r){var b=$('rv');if(!b)return;var L=r.data||[];b.innerHTML=L.length?L.map(function(x){return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><div class="row"><b>'+esc(x.author)+'</b><span class="stars sp">'+stars(x.stars)+'</span><span class="t">'+ago(x.created_at)+'</span></div>'+(x.comment?'<div>'+esc(x.comment)+'</div>':'')+'</div>';}).join(''):'<div class="empty">No reviews yet.</div>';});}
+
+/* ---------- public chat (Twitter-style open room) ---------- */
+function pub(){var m=$('main');m.innerHTML='<div class="feedw"><div class="card" style="padding:0"><div class="row" style="padding:12px 14px;border-bottom:1px solid var(--line)"><b class="sp">Public chat</b><span class="t">Everyone can read and reply</span></div><div class="chat" id="pc" style="height:58vh;padding:10px 14px"></div><div class="row" style="padding:10px 14px;border-top:1px solid var(--line)"><input type="text" id="pi" maxlength="280" placeholder="Say something to everyone"><button class="pri" id="ps">Post</button></div></div></div>';
+var last='';function pull(){if(!$('pc'))return clearInterval(timer);sb.from('public_chat').select('*').order('created_at',{ascending:false}).limit(80).then(function(r){var c=$('pc');if(!c)return;if(r.error){c.innerHTML='<div class="empty">Run community_setup.sql first.</div>';return;}var L=(r.data||[]).reverse(),sig=L.map(function(x){return x.id;}).join();if(sig===last)return;last=sig;var near=c.scrollHeight-c.scrollTop-c.clientHeight<90||!c.children.length;c.innerHTML=L.length?'':'<div class="empty">No messages yet</div>';L.forEach(function(x){var d=document.createElement('div');d.className='row';d.style.cssText='align-items:flex-start;gap:10px;padding:6px 0';d.innerHTML='<div class="av" style="width:36px;height:36px;font-size:15px">'+esc(String(x.author||'?').charAt(0).toUpperCase())+'</div><div style="min-width:0"><div><b>'+esc(x.author)+'</b> <span class="t">· '+ago(x.created_at)+'</span></div><div class="body" style="margin:2px 0"></div></div>';d.querySelector('.body').textContent=x.body;c.appendChild(d);});if(near)c.scrollTop=c.scrollHeight;});}
+pull();clearInterval(timer);timer=setInterval(pull,4000);
+function send(){var v=$('pi').value.trim();if(!v)return;$('pi').value='';sb.from('public_chat').insert({user_id:me.id,author:name,body:v}).then(function(r){if(r.error)toast('Could not post');else pull();});}
+$('ps').onclick=send;$('pi').onkeydown=function(e){if(e.key==='Enter')send();};}
+
+/* ---------- private chat ---------- */
+function chats(){var m=$('main');m.innerHTML='<div class="empty">Loading…</div>';
+Promise.all([sb.from('messages').select('*').order('created_at',{ascending:false}).limit(200),sb.from('community_profiles').select('user_id,name'),stores.length?Promise.resolve():sb.rpc('store_list').then(function(r){stores=Array.isArray(r.data)?r.data:[];})]).then(function(res){
+ var msgs=res[0].data||[],names={};(res[1].data||[]).forEach(function(p){names[p.user_id]=p.name;});stores.forEach(function(s){names[s.owner]=s.name;});
+ var seen={},L=[];msgs.forEach(function(x){var o=x.from_id===me.id?x.to_id:x.from_id;if(!seen[o]){seen[o]=1;L.push({o:o,x:x});}});
+ m.innerHTML='';if(!L.length){m.innerHTML='<div class="empty">No messages yet</div>';return;}
+ L.forEach(function(c){var d=document.createElement('div');d.className='card feedw';d.style.cssText='cursor:pointer;display:flex;gap:12px;align-items:center';d.innerHTML='<div class="av">'+esc(String(names[c.o]||'U').charAt(0).toUpperCase())+'</div><div class="sp" style="min-width:0"><div class="row"><span class="who sp">'+esc(names[c.o]||'User')+'</span><span class="t">'+ago(c.x.created_at)+'</span></div><div class="t" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(c.x.from_id===me.id?'You: ':'')+esc(c.x.body.slice(0,80))+'</div></div>';d.onclick=function(){thread(c.o,names[c.o]||'User');};m.appendChild(d);});});}
+function thread(other,title){open('<div class="row" style="margin-bottom:8px"><div class="av" style="width:36px;height:36px;font-size:15px">'+esc(String(title||'U').charAt(0).toUpperCase())+'</div><h3 style="margin:0" class="sp">'+esc(title)+'</h3><button class="lnk" id="x">Close</button></div><div class="chat" id="ch"></div><div class="row" style="margin-top:8px"><input type="text" id="mi" maxlength="1000" placeholder="Type a message…"><button class="pri" id="ms">Send</button></div>');
+$('x').onclick=close;var last='';
+function pull(){sb.from('messages').select('*').or('and(from_id.eq.'+me.id+',to_id.eq.'+other+'),and(from_id.eq.'+other+',to_id.eq.'+me.id+')').order('created_at',{ascending:true}).limit(100).then(function(r){var c=$('ch');if(!c||r.error)return;var sig=(r.data||[]).map(function(x){return x.id;}).join();if(sig===last)return;last=sig;var near=c.scrollHeight-c.scrollTop-c.clientHeight<80||!c.children.length;c.innerHTML='';(r.data||[]).forEach(function(x){var d=document.createElement('div');d.className='m'+(x.from_id===me.id?' me':'');d.textContent=x.body;var s=document.createElement('small');s.textContent=ago(x.created_at);d.appendChild(s);c.appendChild(d);});if(near)c.scrollTop=c.scrollHeight;});}
+pull();clearInterval(timer);timer=setInterval(pull,4000);
+function send(){var v=$('mi').value.trim();if(!v)return;$('mi').value='';sb.from('messages').insert({from_id:me.id,to_id:other,body:v}).then(function(r){if(r.error)toast('Could not send');else pull();});}
+$('ms').onclick=send;$('mi').onkeydown=function(e){if(e.key==='Enter')send();};}
+
+/* ---------- start ---------- */
+function askName(){return new Promise(function(res){open('<h3 style="margin:0 0 8px">Display name</h3><input type="text" id="dn" maxlength="30" placeholder="e.g. Ahmed"><div class="row" style="margin-top:12px"><span class="sp"></span><button class="pri" id="ok">Continue</button></div>');
+$('ok').onclick=function(){var v=$('dn').value.trim();if(v.length<2){toast('Enter at least 2 letters');return;}sb.from('community_profiles').upsert({user_id:me.id,name:v}).then(function(r){if(r.error){toast('Could not save name');return;}$('ov').classList.remove('on');res(v);});};});}
+$('tb').onclick=function(){KTheme.panel();};
+sb.auth.getSession().then(function(r){var s=r.data&&r.data.session;
+ if(!s){$('main').innerHTML='<div class="empty">Log in to My Khata first.<br><br><a class="pri" style="text-decoration:none;display:inline-block" href="index.html">Open My Khata</a></div>';return;}
+ me=s.user;nav();
+ Promise.all([sb.from('community_profiles').select('name').eq('user_id',me.id).maybeSingle(),sb.from('saves').select('post_id').eq('user_id',me.id)]).then(function(x){
+  (x[1].data||[]).forEach(function(v){saved[v.post_id]=1;});
+  if(x[0].error){$('main').innerHTML='<div class="empty">Run community_setup.sql in Supabase first.</div>';return;}
+  if(x[0].data)name=x[0].data.name;return name?null:askName().then(function(n){name=n;});
+ }).then(function(){if(name)show();});
+});
+})();
+</script>
+</body>
+</html>
